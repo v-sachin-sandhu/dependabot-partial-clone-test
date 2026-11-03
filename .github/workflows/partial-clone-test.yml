@@ -22,4 +22,4 @@ jobs:
       - uses: actions/checkout@631c942040754b6e095e929c1677c07e10ed4f87
 
       # Control: pinned to a tag, so no clone at all.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
