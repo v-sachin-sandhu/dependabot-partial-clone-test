@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # Runs the hosted Dependabot against the fixtures in .github/workflows. The cooldown makes the
+  # updater read release dates, which is the bare clone for actions without GitHub releases.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
