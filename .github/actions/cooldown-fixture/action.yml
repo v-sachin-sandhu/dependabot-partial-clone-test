@@ -1,7 +1,7 @@
 name: cooldown-fixture
-description: Test fixture for Dependabot cooldown checks (B). Does nothing.
+description: Test fixture for Dependabot cooldown checks (C). Does nothing.
 runs:
   using: composite
   steps:
-    - run: echo "cooldown fixture B"
+    - run: echo "cooldown fixture C"
       shell: bash
