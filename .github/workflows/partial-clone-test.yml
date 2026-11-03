@@ -19,7 +19,7 @@ jobs:
 
       # Small repository, pinned-ref clone only: the pin is not a tip and has no tag, but releases
       # exist, so the cooldown date comes from the releases API instead of a clone.
-      - uses: actions/checkout@631c942040754b6e095e929c1677c07e10ed4f87
+      - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a
 
       # Control: pinned to a tag, so no clone at all.
       - uses: actions/setup-node@v4
