@@ -1,0 +1,12 @@
+job:
+  package-manager: hex
+  allowed-updates:
+    - update-type: all
+  source:
+    provider: github
+    repo: v-sachin-sandhu/dependabot-partial-clone-test
+    directory: /mix
+  # With a cooldown, Dependabot reads the release date of each candidate tag, which is the bare
+  # clone of the dependency's repository.
+  cooldown:
+    default-days: 25
