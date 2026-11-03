@@ -12,7 +12,7 @@ jobs:
       # Large repository (about 10 GiB). Pinned to a commit that is not a branch or tag tip and has no
       # tag, so Dependabot clones the repository to find the branch that contains it. Its release
       # tags have no GitHub release, so the cooldown check also clones it (bare) to read dates.
-      - uses: openclaw/openclaw/.github/actions/git-owner@dd4528b6393e7d00063067a080ca7241b48ce475
+      - uses: openclaw/openclaw/.github/actions/git-owner@24aff34974c8dbb739db8e12969d45e2a6ec7bae
 
       # Small repository, same two clones (non-tip pin, no GitHub releases).
       - uses: useblacksmith/begin-testbox@233448af4bfdc6fca509a7f0974411ac6d8a8043
