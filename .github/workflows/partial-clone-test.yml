@@ -1,0 +1,25 @@
+# Test fixture for Dependabot's github_actions updater. The job is disabled so this workflow never
+# runs; Dependabot only reads the `uses:` lines.
+name: partial-clone-test
+
+on: workflow_dispatch
+
+jobs:
+  fixture:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    steps:
+      # Large repository (about 10 GiB). Pinned to a commit that is not a branch or tag tip and has no
+      # tag, so Dependabot clones the repository to find the branch that contains it. Its release
+      # tags have no GitHub release, so the cooldown check also clones it (bare) to read dates.
+      - uses: openclaw/openclaw/.github/actions/git-owner@dd4528b6393e7d00063067a080ca7241b48ce475
+
+      # Small repository, same two clones (non-tip pin, no GitHub releases).
+      - uses: useblacksmith/begin-testbox@233448af4bfdc6fca509a7f0974411ac6d8a8043
+
+      # Small repository, pinned-ref clone only: the pin is not a tip and has no tag, but releases
+      # exist, so the cooldown date comes from the releases API instead of a clone.
+      - uses: actions/checkout@631c942040754b6e095e929c1677c07e10ed4f87
+
+      # Control: pinned to a tag, so no clone at all.
+      - uses: actions/setup-node@v4

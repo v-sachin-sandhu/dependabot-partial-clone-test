@@ -1,0 +1,12 @@
+job:
+  package-manager: github_actions
+  allowed-updates:
+    - update-type: all
+  source:
+    provider: github
+    repo: v-sachin-sandhu/dependabot-partial-clone-test
+    directory: /
+  # The cooldown makes the updater look up release dates, which is the bare clone for actions
+  # without GitHub releases.
+  cooldown:
+    default-days: 7
