@@ -1,0 +1,11 @@
+job:
+  package-manager: github_actions
+  allowed-updates:
+    - dependency-name: "v-sachin-sandhu/dependabot-partial-clone-test/.github/actions/cooldown-fixture"
+  source:
+    provider: github
+    repo: v-sachin-sandhu/dependabot-partial-clone-test
+    directory: /
+  # Commit A (tag v1.0.0) is older than this, the branch tip C is newer.
+  cooldown:
+    default-days: 365

@@ -1,7 +1,11 @@
 job:
   package-manager: github_actions
+  # Only the actions in partial-clone-test.yml; the cooldown fixture has its own job.
   allowed-updates:
-    - update-type: all
+    - dependency-name: "openclaw/openclaw/.github/actions/git-owner"
+    - dependency-name: "useblacksmith/begin-testbox"
+    - dependency-name: "actions/checkout"
+    - dependency-name: "actions/setup-node"
   source:
     provider: github
     repo: v-sachin-sandhu/dependabot-partial-clone-test

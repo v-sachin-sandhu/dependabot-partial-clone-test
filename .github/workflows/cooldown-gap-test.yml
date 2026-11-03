@@ -1,0 +1,18 @@
+# Test fixture for Dependabot's cooldown check on SHA-pinned actions. The job is disabled so this
+# workflow never runs; Dependabot only reads the `uses:` line.
+name: cooldown-gap-test
+
+on: workflow_dispatch
+
+jobs:
+  fixture:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    steps:
+      # The action lives on the cooldown-fixture branch of this repository:
+      #   A  2020-01-01  tagged v1.0.0 (no GitHub release)
+      #   B  2020-01-02  pinned here: not a branch or tag tip, no tag
+      #   C  recent      branch tip
+      # Dependabot updates B to the branch tip C. With a 365-day cooldown it should hold that update
+      # back, because C is recent.
+      - uses: v-sachin-sandhu/dependabot-partial-clone-test/.github/actions/cooldown-fixture@070be39f4bd0e0c2cc086c0b13ec5398e1de2c2a
