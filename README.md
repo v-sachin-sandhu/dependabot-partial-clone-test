@@ -110,3 +110,28 @@ The cooldown is checked for C, but the date comes from commit A (the `v1.0.0` ta
 The log also shows a second existing problem: `git for-each-ref` returns nothing, because Dependabot passes the quotes in `"refs/tags/v1.0.0"` to git literally. So the commit date is always used instead of the tag's own creation date.
 
 The fixture keeps reproducing the gap until commit C is older than 365 days, around 2027-11-02.
+
+## Tag dates for git dependencies (hex)
+
+This part exercises the shared code that reads tag dates for git dependencies when a cooldown is configured: `GitMetadataFetcher` bare-clones the dependency's repository and runs `git for-each-ref` on its tags. The change in dependabot/dependabot-core#16800 makes that clone partial (`--filter=tree:0`).
+
+[`mix/mix.exs`](mix/mix.exs) pins `{:daisyui, github: "saadeghi/daisyui", tag: "v5.7.40", sparse: "packages/bundle", depth: 1}`. `saadeghi/daisyui` is about 11.8 GiB. [`dependabot-cli/mix-cooldown-job.yml`](dependabot-cli/mix-cooldown-job.yml) runs the hex updater on `/mix` with a 25-day cooldown.
+
+```sh
+dependabot update -f dependabot-cli/mix-cooldown-job.yml -t 35m \
+  -v /path/to/dependabot-core/common/lib:/home/dependabot/common/lib
+```
+
+Observed on 2026-11-03 with the change mounted:
+
+```
+Filtered git tag v5.7.48 for daisyui: released 2026-10-12 (21/25 cooldown days)
+Filtered git tag v5.7.49 for daisyui: released 2026-10-13 (21/25 cooldown days)
+Filtered git tag v5.7.50 for daisyui: released 2026-10-13 (20/25 cooldown days)
+Updating daisyui from 0ea447bfc78889b3dadc5326cf2c8bcd182be42d to c51f50130ffefb293179e6fce8de7ad3f307e45f
+| created | daisyui ( from v5.7.40 to v5.7.47 ) |
+```
+
+The pull request changes `tag:` in `mix.exs` to `v5.7.47` and the locked commit in `mix.lock` to `c51f501…`. The partial bare clone of `saadeghi/daisyui` is about 2.4 MB with 711 tags. Which tag is chosen depends on the date the job runs, because the cooldown is measured from today.
+
+Without the change, the bare clone downloads the whole repository; jobs fail with `fatal: write error: No space left on device` or the inactivity timeout. That run was not repeated here because of the disk space it needs.
