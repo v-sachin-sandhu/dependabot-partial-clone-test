@@ -15,7 +15,7 @@ A fixture for testing how Dependabot's `github_actions` updater clones action re
 
 [`dependabot-cli/job.yml`](dependabot-cli/job.yml) is a Dependabot CLI job for these four actions with a 7-day cooldown, which is what makes the updater look up release dates.
 
-[`.github/dependabot.yml`](.github/dependabot.yml) runs GitHub's hosted Dependabot for `github-actions` only, with a 7-day cooldown. It does not include the `mix` fixture, which needs dependabot/dependabot-core#16800.
+[`.github/dependabot.yml`](.github/dependabot.yml) runs GitHub's hosted Dependabot for `github-actions` (7-day cooldown) and for the `mix` fixture (25-day cooldown).
 
 ## Running it
 

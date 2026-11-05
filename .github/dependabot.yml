@@ -8,3 +8,12 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
+
+  # Runs the hosted Dependabot against mix/, a git dependency on saadeghi/daisyui (about 11.8 GiB).
+  # The cooldown makes the updater read the dependency's tag dates from a bare clone.
+  - package-ecosystem: mix
+    directory: /mix
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 25
