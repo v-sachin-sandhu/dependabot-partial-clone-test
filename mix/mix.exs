@@ -11,7 +11,7 @@ defmodule CooldownFixture.MixProject do
     [
       {:daisyui,
        github: "saadeghi/daisyui",
-       tag: "v5.7.40",
+       tag: "v5.7.50",
        sparse: "packages/bundle",
        app: false,
        compile: false,
